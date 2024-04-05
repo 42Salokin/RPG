@@ -44,14 +44,14 @@ function mobAttack() {
         damage = (damage + 1);
         console.log(`And deals ${damage} damage`);
         heroHP = (heroHP-damage)
-        console.log(`Hero is down to ${heroHP}`);
+        console.log(`Hero is down to ${heroHP} HP`);
     } else if (attempt == 20) {
         console.log("Critical hit!");
         let damage = Math.floor(Math.random() * (mobDamage.length + 1));
         damage = ((damage + 1) * 2);
         console.log(`And deals ${damage} damage`);
         heroHP = (heroHP-damage)
-        console.log(`Hero is down to ${heroHP}`);        
+        console.log(`Hero is down to ${heroHP} HP`);        
     } 
     else {
         console.log("It misses");
