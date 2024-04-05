@@ -1,6 +1,8 @@
 const hHP = document.querySelector('#hHP')
 const hAC = document.querySelector('#hAC')
 const mHP = document.querySelector('#mHP')
+const hAnnounce = document.querySelector('#hAnnounce')
+const mAnnounce = document.querySelector('#mAnnounce')
 let mobDamage = [1, 2, 3, 4, 5, 6]
 
 const hero = {
@@ -26,14 +28,9 @@ function heroAttack() {
     let attempt = Math.floor(Math.random() * 20);
     attempt = (attempt + 1);
     console.log(`Hero attacks with ${attempt} vs creature's AC of ${mobAC}`);
+    hAnnounce.textContent = "Hero attacks..."
     if (attempt >= mobAC && attempt < 20) {
-        console.log("It hits!");
-        let damage = Math.floor(Math.random() * (heroDamage.length));
-        damage = (damage + 1);
-        console.log(`And deals ${damage} damage`);
-        mobHP = (mobHP-damage)
-        console.log(`Creature is down to ${mobHP} HP`);
-        mHP.textContent = mobHP
+        setTimeout(heroHits, 1500)
     } else if (attempt == 20) {
         console.log("Critical hit!");
         let damage = Math.floor(Math.random() * (heroDamage.length));
@@ -52,6 +49,23 @@ function heroAttack() {
     } else {
         setTimeout(mobAttack, 3000)
     }
+}
+
+function heroHits() {
+    console.log("It hits!");
+    hAnnounce.textContent = "It hits!";
+    setTimeout(heroDeals, 1000);
+}
+
+function heroDeals() {
+    let damage = Math.floor(Math.random() * (heroDamage.length));
+    damage = (damage + 1);
+    console.log(`And deals ${damage} damage`);
+    hAnnounce.textContent = ''
+    mAnnounce.textContent = `And deals ${damage} damage`;
+    mobHP = (mobHP-damage);
+    console.log(`Creature is down to ${mobHP} HP`);
+    mHP.textContent = mobHP;
 }
 
 function mobAttack() {
