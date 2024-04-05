@@ -1,9 +1,26 @@
-let heroHP = 10
-let heroAC = 12
-let mobHP = 6
-let mobAC = 10
-let heroDamage = [1, 2, 3, 4, 5, 6, 7, 8]
+const hHP = document.querySelector('#hHP')
+const hAC = document.querySelector('#hAC')
+const mHP = document.querySelector('#mHP')
 let mobDamage = [1, 2, 3, 4, 5, 6]
+
+const hero = {
+    HP: 10,
+    AC: 12,
+}
+let heroHP = hero.HP
+let heroAC = hero.AC
+hHP.textContent = heroHP
+hAC.textContent = heroAC
+let heroDamage = [1, 2, 3, 4, 5, 6, 7, 8]
+
+const mob = {
+    HP: 6,
+    AC: 10,
+}
+let mobHP = mob.HP
+let mobAC = mob.AC
+mHP.textContent = mobHP
+
 
 function heroAttack() {
     let attempt = Math.floor(Math.random() * 20);
@@ -16,22 +33,24 @@ function heroAttack() {
         console.log(`And deals ${damage} damage`);
         mobHP = (mobHP-damage)
         console.log(`Creature is down to ${mobHP} HP`);
+        mHP.textContent = mobHP
     } else if (attempt == 20) {
         console.log("Critical hit!");
         let damage = Math.floor(Math.random() * (heroDamage.length));
         damage = ((damage + 1) * 2);
         console.log(`And deals ${damage} damage`);
         mobHP = (mobHP-damage)
-        console.log(`Creature is down to ${mobHP} HP`);        
+        console.log(`Creature is down to ${mobHP} HP`); 
+        mHP.textContent = mobHP       
     } 
     else {
         console.log("It misses");
     }
     if (mobHP <= 0) {  
        console.log(`Hero kills the creature!`);
-       setTimeout(mobRefresh, 1500)
+       setTimeout(mobRefresh, 3000)
     } else {
-        setTimeout(mobAttack, 1500)
+        setTimeout(mobAttack, 3000)
     }
 }
 
@@ -46,13 +65,15 @@ function mobAttack() {
         console.log(`And deals ${damage} damage`);
         heroHP = (heroHP-damage)
         console.log(`Hero is down to ${heroHP} HP`);
+        hHP.textContent = heroHP
     } else if (attempt == 20) {
         console.log("Critical hit!");
         let damage = Math.floor(Math.random() * (mobDamage.length + 1));
         damage = ((damage + 1) * 2);
         console.log(`And deals ${damage} damage`);
         heroHP = (heroHP-damage)
-        console.log(`Hero is down to ${heroHP} HP`);        
+        console.log(`Hero is down to ${heroHP} HP`); 
+        hHP.textContent = heroHP       
     } 
     else {
         console.log("It misses");
@@ -63,8 +84,9 @@ function mobAttack() {
 }
 
 function mobRefresh() {
-    mobHP = 6
+    mobHP = mob.HP
     console.log(`A new foe appears! Hero has ${heroHP} HP`);
+    mHP.textContent = mobHP
 }
 // heroAttack()
 // mobAttack()
