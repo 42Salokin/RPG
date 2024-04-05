@@ -9,14 +9,22 @@ function heroAttack() {
     let attempt = Math.floor(Math.random() * 20);
     attempt = (attempt + 1);
     console.log(`Hero attacks with ${attempt} vs creature's AC of ${mobAC}`);
-    if (attempt >= mobAC) {
+    if (attempt >= mobAC && attempt < 20) {
         console.log("It hits!");
         let damage = Math.floor(Math.random() * (heroDamage.length));
         damage = (damage + 1);
         console.log(`And deals ${damage} damage`);
         mobHP = (mobHP-damage)
         console.log(`Creature is down to ${mobHP} HP`);
-    } else {
+    } else if (attempt == 20) {
+        console.log("Critical hit!");
+        let damage = Math.floor(Math.random() * (heroDamage.length));
+        damage = ((damage + 1) * 2);
+        console.log(`And deals ${damage} damage`);
+        mobHP = (mobHP-damage)
+        console.log(`Creature is down to ${mobHP} HP`);        
+    } 
+    else {
         console.log("It misses");
     }
     if (mobHP <= 0) {  
@@ -30,14 +38,22 @@ function mobAttack() {
     let attempt = Math.floor(Math.random() * 20);
     attempt = (attempt + 1);
     console.log(`Creature attacks with ${attempt} vs hero's AC of ${heroAC}`);
-    if (attempt >= heroAC) {
+    if (attempt >= heroAC && attempt < 20) {
         console.log("It hits!");
         let damage = Math.floor(Math.random() * (mobDamage.length + 1));
         damage = (damage + 1);
         console.log(`And deals ${damage} damage`);
         heroHP = (heroHP-damage)
         console.log(`Hero is down to ${heroHP}`);
-    } else {
+    } else if (attempt == 20) {
+        console.log("Critical hit!");
+        let damage = Math.floor(Math.random() * (mobDamage.length + 1));
+        damage = ((damage + 1) * 2);
+        console.log(`And deals ${damage} damage`);
+        heroHP = (heroHP-damage)
+        console.log(`Hero is down to ${heroHP}`);        
+    } 
+    else {
         console.log("It misses");
     }
     if (heroHP <= 0) {

@@ -36,7 +36,7 @@ main {
     align-items: center;
 }
 
-.left article span {
+.left article span, .right article span {
     font-size: xx-large;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
@@ -48,4 +48,17 @@ main {
     width: 50%;
     height: 796px;
     margin-left: 4px;
+}
+
+.right article {
+    margin: auto;
+    margin-top: 50px;
+    background-color: #b91b1b;
+    width: 70%;
+    height: 40%;
+    border: 1px solid #520606;
+    border-radius: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
