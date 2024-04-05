@@ -29,8 +29,9 @@ function heroAttack() {
     }
     if (mobHP <= 0) {  
        console.log(`Hero kills the creature!`);
+       setTimeout(mobRefresh, 1500)
     } else {
-        mobAttack()
+        setTimeout(mobAttack, 1500)
     }
 }
 
@@ -61,5 +62,9 @@ function mobAttack() {
     }
 }
 
-heroAttack()
+function mobRefresh() {
+    mobHP = 6
+    console.log(`A new foe appears! Hero has ${heroHP} HP`);
+}
+// heroAttack()
 // mobAttack()
