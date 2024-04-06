@@ -3,7 +3,6 @@ const hAC = document.querySelector('#hAC')
 const mHP = document.querySelector('#mHP')
 const hAnnounce = document.querySelector('#hAnnounce')
 const mAnnounce = document.querySelector('#mAnnounce')
-let mobDamage = [1, 2, 3, 4, 5, 6]
 
 const hero = {
     HP: 10,
@@ -22,6 +21,7 @@ const mob = {
 let mobHP = mob.HP
 let mobAC = mob.AC
 mHP.textContent = mobHP
+let mobDamage = [1, 2, 3, 4, 5, 6]
 
 
 function heroAttack() {
