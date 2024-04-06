@@ -16,7 +16,7 @@ hAC.textContent = heroAC
 let heroDamage = [1, 2, 3, 4, 5, 6, 7, 8]
 
 const mob = {
-    HP: 6,
+    HP: 8,
     AC: 10,
 }
 let mobHP = mob.HP
@@ -97,8 +97,8 @@ function mobDeath() {
 function mobRefresh() {
     mobHP = mob.HP
     console.log(`A new foe appears! Hero has ${heroHP} HP`);
-    mAnnounce.textContent = "";
-    hAnnounce.textContent = `A new foe appears! Hero has ${heroHP} HP`
+    hAnnounce.textContent = "";
+    mAnnounce.textContent = `A new foe appears! Hero has ${heroHP} HP`
     mHP.textContent = mobHP
 }
 
@@ -150,7 +150,9 @@ function mobDeals() {
     hHP.textContent = heroHP;
     if (heroHP <= 0) {  
         setTimeout(heroDeath, 1500);
-     } 
+     } else {
+        setTimeout(heroUpdate, 1500)
+     }
 }
 
 function mobCritDeals() {
@@ -163,11 +165,19 @@ function mobCritDeals() {
     hHP.textContent = heroHP;
     if (heroHP <= 0) {  
         setTimeout(heroDeath, 1500);
-     } 
+     } else {
+        setTimeout(heroUpdate, 1500)
+     }
 }
 
 function heroDeath() {
     console.log(`The hero has died! Game over`);
     mAnnounce.textContent = "";
     hAnnounce.textContent = "The hero has died! Game over";
+}
+
+function heroUpdate() {
+    console.log(`Hero is down to ${heroHP} HP`);
+    mAnnounce.textContent = ""
+    hAnnounce.textContent = `Hero is down to ${heroHP} HP`
 }
