@@ -54,7 +54,7 @@ function heroCrit() {
 function heroMiss() {
     console.log("It misses");
     hAnnounce.textContent = "It misses"
-    setTimeout(mobAttack, 3000)
+    setTimeout(mobAttack, 2500)
 }
 
 function heroDeals() {
@@ -66,7 +66,7 @@ function heroDeals() {
     mobHP = (mobHP-damage);
     mHP.textContent = mobHP;
     if (mobHP <= 0) {  
-        setTimeout(mobDeath, 1500);
+        setTimeout(mobDeath, 2500);
      } else {
         setTimeout(mobUpdate, 1500);
      }
@@ -81,7 +81,7 @@ function heroCritDeals() {
     mobHP = (mobHP-damage)
     mHP.textContent = mobHP
     if (mobHP <= 0) {  
-        setTimeout(mobDeath, 1500);
+        setTimeout(mobDeath, 2500);
      } else {
         setTimeout(mobUpdate, 1500);
      }
@@ -94,6 +94,14 @@ function mobDeath() {
     setTimeout(mobRefresh, 3000);
 }
 
+function mobRefresh() {
+    mobHP = mob.HP
+    console.log(`A new foe appears! Hero has ${heroHP} HP`);
+    mAnnounce.textContent = "";
+    hAnnounce.textContent = `A new foe appears! Hero has ${heroHP} HP`
+    mHP.textContent = mobHP
+}
+
 function mobUpdate() {
     console.log(`Creature is down to ${mobHP} HP`);
     mAnnounce.textContent = `Creature is down to ${mobHP} HP`
@@ -104,37 +112,62 @@ function mobAttack() {
     let attempt = Math.floor(Math.random() * 20);
     attempt = (attempt + 1);
     console.log(`Creature attacks with ${attempt} vs hero's AC of ${heroAC}`);
+    hAnnounce.textContent = ""
+    mAnnounce.textContent = "Creature attacks..."
     if (attempt >= heroAC && attempt < 20) {
-        console.log("It hits!");
-        let damage = Math.floor(Math.random() * (mobDamage.length + 1));
-        damage = (damage + 1);
-        console.log(`And deals ${damage} damage`);
-        heroHP = (heroHP-damage)
-        console.log(`Hero is down to ${heroHP} HP`);
-        hHP.textContent = heroHP
+        setTimeout(mobHits, 1500)
     } else if (attempt == 20) {
-        console.log("Critical hit!");
-        let damage = Math.floor(Math.random() * (mobDamage.length + 1));
-        damage = ((damage + 1) * 2);
-        console.log(`And deals ${damage} damage`);
-        heroHP = (heroHP-damage)
-        console.log(`Hero is down to ${heroHP} HP`); 
-        hHP.textContent = heroHP       
-    } 
-    else {
-        console.log("It misses");
-    }
-    if (heroHP <= 0) {
-        console.log("Hero dies");
+        setTimeout(mobCrit, 1500)       
+    } else {
+        setTimeout(mobMiss, 1500)
     }
 }
 
-function mobRefresh() {
-    mobHP = mob.HP
-    console.log(`A new foe appears! Hero has ${heroHP} HP`);
-    mAnnounce.textContent = "";
-    hAnnounce.textContent = `A new foe appears! Hero has ${heroHP} HP`
-    mHP.textContent = mobHP
+function mobHits() {
+    console.log("It hits!");
+    mAnnounce.textContent = "It hits!";
+    setTimeout(mobDeals, 1000);
 }
-// heroAttack()
-// mobAttack()
+
+function mobCrit() {
+    console.log("Critical hit!");
+    mAnnounce.textContent = "Critical hit!";
+    setTimeout(mobCritDeals, 1000);
+}
+
+function mobMiss() {
+    console.log("It misses");
+    mAnnounce.textContent = "It misses"
+}
+
+function mobDeals() {
+    let damage = Math.floor(Math.random() * (mobDamage.length));
+    damage = (damage + 1);
+    console.log(`And deals ${damage} damage`);
+    mAnnounce.textContent = '';
+    hAnnounce.textContent = `And deals ${damage} damage`;
+    heroHP = (heroHP-damage);
+    hHP.textContent = heroHP;
+    if (heroHP <= 0) {  
+        setTimeout(heroDeath, 1500);
+     } 
+}
+
+function mobCritDeals() {
+    let damage = Math.floor(Math.random() * (mobDamage.length));
+    damage = ((damage + 1) * 2);
+    console.log(`And deals ${damage} damage`);
+    mAnnounce.textContent = '';
+    hAnnounce.textContent = `And deals ${damage} damage`;
+    heroHP = (heroHP-damage);
+    hHP.textContent = heroHP;
+    if (heroHP <= 0) {  
+        setTimeout(heroDeath, 1500);
+     } 
+}
+
+function heroDeath() {
+    console.log(`The hero has died! Game over`);
+    mAnnounce.textContent = "";
+    hAnnounce.textContent = "The hero has died! Game over";
+}
