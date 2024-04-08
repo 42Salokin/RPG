@@ -1,5 +1,8 @@
 const hHP = document.querySelector('#hHP')
 const hAC = document.querySelector('#hAC')
+const hLvl = document.querySelector('#hLvl')
+const hExp = document.querySelector('#hExp')
+const hGold = document.querySelector('#hGold')
 const mHP = document.querySelector('#mHP')
 const hAnnounce = document.querySelector('#hAnnounce')
 const mAnnounce = document.querySelector('#mAnnounce')
@@ -7,11 +10,20 @@ const mAnnounce = document.querySelector('#mAnnounce')
 const hero = {
     HP: 10,
     AC: 12,
+    Level: 1,
+    Exp: 0,
+    Gold: 10,
 }
 let heroHP = hero.HP
 let heroAC = hero.AC
+let heroLevel = hero.Level
+let heroExp = hero.Exp
+let heroGold = hero.Gold
 hHP.textContent = heroHP
 hAC.textContent = heroAC
+hLvl.textContent = heroLevel
+hExp.textContent = heroExp
+hGold.textContent = heroGold
 let heroDamage = [1, 2, 3, 4, 5, 6, 7, 8]
 
 const mob = {
