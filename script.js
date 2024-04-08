@@ -29,9 +29,13 @@ let heroDamage = [1, 2, 3, 4, 5, 6, 7, 8]
 const mob = {
     HP: 8,
     AC: 10,
+    Exp: 5,
+    Gold: 5,
 }
 let mobHP = mob.HP
 let mobAC = mob.AC
+let mobExp = mob.Exp
+let mobGold = mob.Gold
 mHP.textContent = mobHP
 let mobDamage = [1, 2, 3, 4, 5, 6]
 
@@ -103,7 +107,33 @@ function mobDeath() {
     console.log(`Hero kills the creature!`);
     mAnnounce.textContent = "";
     hAnnounce.textContent = "Hero kills the creature!";
-    setTimeout(mobRefresh, 3000);
+    setTimeout(heroReward, 2000);
+}
+
+function heroReward() {
+    console.log(`Hero collects ${mobGold} gold and receives ${mobExp} exp`);
+    hAnnounce.textContent = `Hero collects ${mobGold} gold and receives ${mobExp} exp`;
+    heroExp = (heroExp + mobExp);
+    heroGold = (heroGold + mobGold);
+    hExp.textContent = heroExp;
+    hGold.textContent = heroGold;
+    setTimeout(mobRefresh, 3000)
+}
+
+function heroRun() {
+    if (heroHP < 10) {
+        console.log(`Hero retreats and recovers ${heroLevel} hp`);
+       mAnnounce.textContent = '';
+       hAnnounce.textContent = `Hero retreats and recovers ${heroLevel} HP`;
+       heroHP = (heroHP + heroLevel);
+       hHP.textContent = heroHP;
+       setTimeout(mobRefresh, 2000)
+    } else {
+        console.log("Hero retreats");
+        mAnnounce.textContent = '';
+        hAnnounce.textContent = "Hero retreats";
+        setTimeout(mobRefresh, 2000)
+    }    
 }
 
 function mobRefresh() {

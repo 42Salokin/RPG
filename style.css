@@ -61,6 +61,10 @@ main {
     margin-bottom: 10px;
 }
 
+#atkbtn {
+    margin-bottom: 5px;
+}
+
 #hAnnounce, #mAnnounce {
     margin: 20px auto;
     text-align: center;
