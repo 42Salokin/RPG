@@ -6,14 +6,19 @@ const hGold = document.querySelector('#hGold')
 const mHP = document.querySelector('#mHP')
 const hAnnounce = document.querySelector('#hAnnounce')
 const mAnnounce = document.querySelector('#mAnnounce')
+const levAnnounce = document.querySelector('#levAnnounce')
+const levText = document.querySelector('#levText')
+const close = document.querySelector('#close')
 
 const hero = {
+    MaxHP: 10,
     HP: 10,
     AC: 12,
     Level: 1,
     Exp: 0,
     Gold: 10,
 }
+let heroMaxHP = hero.MaxHP
 let heroHP = hero.HP
 let heroAC = hero.AC
 let heroLevel = hero.Level
@@ -25,6 +30,7 @@ hLvl.textContent = heroLevel
 hExp.textContent = heroExp
 hGold.textContent = heroGold
 let heroDamage = [1, 2, 3, 4, 5, 6, 7, 8]
+let levelHP = [1, 2, 3, 4, 5]
 
 const mob = {
     HP: 8,
@@ -114,6 +120,9 @@ function heroReward() {
     console.log(`Hero collects ${mobGold} gold and receives ${mobExp} exp`);
     hAnnounce.textContent = `Hero collects ${mobGold} gold and receives ${mobExp} exp`;
     heroExp = (heroExp + mobExp);
+    if ((heroExp >= 15) && (heroLevel === 1)) {
+        setTimeout(levelUp, 500)
+    }
     heroGold = (heroGold + mobGold);
     hExp.textContent = heroExp;
     hGold.textContent = heroGold;
@@ -122,10 +131,14 @@ function heroReward() {
 
 function heroRun() {
     if (heroHP < 10) {
-        console.log(`Hero retreats and recovers ${heroLevel} hp`);
+    //     console.log(`Hero retreats and recovers ${heroLevel} hp`);
+    //    mAnnounce.textContent = '';
+    //    hAnnounce.textContent = `Hero retreats and recovers ${heroLevel} HP`;
+    //    heroHP = (heroHP + heroLevel);
+       console.log(`Hero retreats and recovers full hp`);
        mAnnounce.textContent = '';
-       hAnnounce.textContent = `Hero retreats and recovers ${heroLevel} HP`;
-       heroHP = (heroHP + heroLevel);
+       hAnnounce.textContent = `Hero retreats and recovers full HP`;
+       heroHP = heroMaxHP;
        hHP.textContent = heroHP;
        setTimeout(mobRefresh, 2000)
     } else {
@@ -222,4 +235,26 @@ function heroUpdate() {
     console.log(`Hero is down to ${heroHP} HP`);
     mAnnounce.textContent = ""
     hAnnounce.textContent = `Hero is down to ${heroHP} HP`
+}
+
+function levelUp() {
+    // pop up message over screen announcing level up
+    levAnnounce.style.visibility = "visible";
+    // display new level
+    heroLevel++;
+    hLvl.textContent = heroLevel;
+    // reset HP to max, add new HP, make new max
+    let newHP = Math.floor(Math.random() * (levelHP.length));
+    newHP = (newHP +6);
+    heroMaxHP = (heroMaxHP + newHP);
+    heroHP = heroMaxHP;
+    // display new HP
+    hHP.textContent = heroHP;
+    console.log(`Level Up! Hero has reached Level ${heroLevel}!`);
+    console.log(`Hero gains ${newHP} more HP`);
+    levText.textContent = `Level Up! Hero has reached Level ${heroLevel}! Hero gains ${newHP} more HP`;
+}
+
+close.onclick = function() {
+    levAnnounce.style.visibility = "hidden";
 }
