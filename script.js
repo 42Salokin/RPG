@@ -7,7 +7,7 @@ const mHP = document.querySelector('#mHP')
 const hAnnounce = document.querySelector('#hAnnounce')
 const mAnnounce = document.querySelector('#mAnnounce')
 const levAnnounce = document.querySelector('#levAnnounce')
-const levText = document.querySelector('#levText')
+const levList = document.querySelector('#levList')
 const close = document.querySelector('#close')
 
 const hero = {
@@ -252,7 +252,17 @@ function levelUp() {
     hHP.textContent = heroHP;
     console.log(`Level Up! Hero has reached Level ${heroLevel}!`);
     console.log(`Hero gains ${newHP} more HP`);
-    levText.textContent = `Level Up! Hero has reached Level ${heroLevel}! Hero gains ${newHP} more HP`;
+
+    const levText1 = document.createElement("li");
+    const levText2 = document.createElement("li");
+    const levText3 = document.createElement("li");
+    levText1.setAttribute("class", "levText");
+    levText2.setAttribute("class", "levText");
+    levText3.setAttribute("class", "levText");
+    levText1.textContent = `Level Up!`;
+    levText2.textContent = `Hero has reached Level ${heroLevel}!`;
+    levText3.textContent = `Hero gains ${newHP} more HP`;
+    levList.append(levText1, levText2, levText3);
 }
 
 close.onclick = function() {
