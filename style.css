@@ -76,11 +76,19 @@ main {
     cursor: pointer;
 }
 
-.left {
+#sidebar {
     margin-top: 4px;
     border-top: 4px solid black;
     border-right: 4px solid black;
-    width: 50%;
+    width: 10%;
+    height: 796px;
+}
+
+#left {
+    margin-top: 4px;
+    border-top: 4px solid black;
+    border-right: 4px solid black;
+    width: 45%;
     height: 796px;
 }
 
@@ -92,7 +100,7 @@ main {
     line-height: 25px;
 }
 
-.left article {
+#left article {
     margin: auto;
     margin-top: 50px;
     background-image: linear-gradient(#85fc7c, #26991d, #075501);
@@ -107,12 +115,12 @@ main {
     flex-direction: column;
 }
 
-.left article span, .right article span {
+#left article span, #right article span {
     font-size: xx-large;
     margin-bottom: 10px;
 }
 
-.left article ul, .right article ul {
+#left article ul, #right article ul {
     list-style: none;
     padding-left: 0;
     font-size: large;
@@ -141,16 +149,16 @@ main {
     line-height: 40px
 }
 
-.right {
+#right {
     margin-top: 4px;
     border-top: 4px solid black;
     border-left: 4px solid black;
-    width: 50%;
+    width: 45%;
     height: 796px;
     margin-left: 4px;
 }
 
-.right article {
+#right article {
     margin: auto;
     margin-top: 50px;
     background-image: linear-gradient(#f07676, #b91b1b, #580101);
