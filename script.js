@@ -3,12 +3,15 @@ const hAC = document.querySelector('#hAC')
 const hLvl = document.querySelector('#hLvl')
 const hExp = document.querySelector('#hExp')
 const hGold = document.querySelector('#hGold')
+const hStr = document.querySelector('#hStr')
+const hDex = document.querySelector('#hDex')
+const hCon = document.querySelector('#hCon')
 const mHP = document.querySelector('#mHP')
 const hAnnounce = document.querySelector('#hAnnounce')
 const mAnnounce = document.querySelector('#mAnnounce')
 const levAnnounce = document.querySelector('#levAnnounce')
 const levList = document.querySelector('#levList')
-const close = document.querySelector('#close')
+const statList = document.querySelector('#statList')
 
 const hero = {
     MaxHP: 10,
@@ -17,18 +20,30 @@ const hero = {
     Level: 1,
     Exp: 0,
     Gold: 10,
+    Str: 1,
+    Dex: 1,
+    Con: 1,
 }
 let heroMaxHP = hero.MaxHP
 let heroHP = hero.HP
-let heroAC = hero.AC
 let heroLevel = hero.Level
 let heroExp = hero.Exp
 let heroGold = hero.Gold
+let heroStr = hero.Str
+let atkBonus = parseInt(heroStr/2)
+let heroDex = hero.Dex
+let acBonus = parseInt(heroDex/2)
+let heroAC = (hero.AC + acBonus)
+let heroCon = hero.Con
+let hpBonus = parseInt(heroCon/2)
 hHP.textContent = heroHP
 hAC.textContent = heroAC
 hLvl.textContent = heroLevel
 hExp.textContent = heroExp
 hGold.textContent = heroGold
+hStr.textContent = heroStr
+hDex.textContent = heroDex
+hCon.textContent = heroCon
 let heroDamage = [1, 2, 3, 4, 5, 6, 7, 8]
 let levelHP = [1, 2, 3, 4, 5]
 
@@ -48,7 +63,7 @@ let mobDamage = [1, 2, 3, 4, 5, 6]
 
 function heroAttack() {
     let attempt = Math.floor(Math.random() * 20);
-    attempt = (attempt + 1);
+    attempt = (attempt + atkBonus + 1);
     console.log(`Hero attacks with ${attempt} vs creature's AC of ${mobAC}`);
     mAnnounce.textContent = ""
     hAnnounce.textContent = "Hero attacks..."
@@ -81,7 +96,7 @@ function heroMiss() {
 
 function heroDeals() {
     let damage = Math.floor(Math.random() * (heroDamage.length));
-    damage = (damage + 1);
+    damage = (damage + atkBonus + 1);
     console.log(`And deals ${damage} damage`);
     hAnnounce.textContent = '';
     mAnnounce.textContent = `And deals ${damage} damage`;
@@ -130,11 +145,12 @@ function heroReward() {
 }
 
 function heroRun() {
-    if (heroHP < 10) {
-    //     console.log(`Hero retreats and recovers ${heroLevel} hp`);
+    if (heroHP < heroMaxHP) {
+        // const heal = (heroLevel + hpBonus)
+    //     console.log(`Hero retreats and recovers ${heal} hp`);
     //    mAnnounce.textContent = '';
-    //    hAnnounce.textContent = `Hero retreats and recovers ${heroLevel} HP`;
-    //    heroHP = (heroHP + heroLevel);
+    //    hAnnounce.textContent = `Hero retreats and recovers ${heal} HP`;
+    //    heroHP = (heroHP + heal);
        console.log(`Hero retreats and recovers full hp`);
        mAnnounce.textContent = '';
        hAnnounce.textContent = `Hero retreats and recovers full HP`;
@@ -245,7 +261,7 @@ function levelUp() {
     hLvl.textContent = heroLevel;
     // reset HP to max, add new HP, make new max
     let newHP = Math.floor(Math.random() * (levelHP.length));
-    newHP = (newHP +6);
+    newHP = (newHP + hpBonus + 6);
     heroMaxHP = (heroMaxHP + newHP);
     heroHP = heroMaxHP;
     // display new HP
@@ -265,6 +281,44 @@ function levelUp() {
     levList.append(levText1, levText2, levText3);
 }
 
-close.onclick = function() {
+statList.addEventListener('click', (event) => {
     levAnnounce.style.visibility = "hidden";
+    const selectedStat = event.target.textContent;
+    statUpgrade(selectedStat);
+})
+
+function statUpgrade(selectedStat) {
+    console.log(selectedStat);
+    switch (selectedStat) {
+        case "Dex +1 Adds to Armor Class":
+            heroDex = (heroDex + 1);
+            acBonus = parseInt(heroDex/2);
+            heroAC = (heroAC + acBonus);
+            hDex.textContent = heroDex;
+            hAC.textContent = heroAC
+            console.log(`Hero's new Dex is ${heroDex}`);
+            console.log(`Hero's new AC bonus is ${acBonus}, for a new AC of ${heroAC}`);
+            break;
+    
+        case "Con +1 Adds to Hit Points":
+            heroCon = (heroCon + 1);
+            hpBonus = parseInt(heroCon/2);
+            hCon.textContent = heroCon;
+            heroMaxHP = (heroMaxHP + hpBonus);
+            heroHP = heroMaxHP;
+            hHP.textContent = heroHP;
+            console.log(`Hero's new Con is ${heroCon}`);
+            console.log(`Hero's new HP bonus is ${hpBonus}, for a new HP total of ${heroHP}`);
+            break;
+
+        default:
+            heroStr = (heroStr + 1);
+            atkBonus = parseInt(heroStr/2);
+            hStr.textContent = heroStr
+            console.log(`Hero's new Str is ${heroStr}`);
+            console.log(`Hero gets a +${atkBonus} to attack and damage`);
+            break;
+    }
 }
+
+// levelUp();
